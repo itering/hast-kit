@@ -19,6 +19,9 @@ submit the editing workflow to a remote Agent.
 Use `cutline --help` to inspect installed commands. If unavailable, use the
 bundled [installation instructions](references/install.md) to install the published
 CLI and resolve prerequisites. Do not clone the private Hast repository.
+For HAST generation, check `cutline hast --help` for browser-login options
+(`--no-browser`, `--credential-store`). If missing, follow the installation
+reference to upgrade to 0.2.0 or later.
 Run `cutline doctor` before rendering to identify missing local prerequisites.
 
 Create a new project with `cutline init <new-directory>`. For existing projects,

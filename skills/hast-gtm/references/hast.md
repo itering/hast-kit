@@ -1,16 +1,31 @@
 # Hast asset generation
 
-Use `cutline hast --help` or `cutline --help` for the installed syntax. A
-deployment must expose the public model endpoints and the user's Workspace API
-key must grant `models:invoke`. Do not substitute a cloud Agent task or an
-OpenRouter key.
+Use `cutline hast login` to start browser authorization. The user signs in to
+HAST Account, chooses the Workspace, checks the terminal code, and explicitly
+approves HAST GTM CLI's `models:invoke` permission. Wait for the user to complete
+this step; do not approve on their behalf or ask for keys in chat.
 
-The user obtains the API key in Hast's AIP API-key settings. Import from a private
-file with `cutline hast login --base-url <Backplane-origin/api/public/v1> --from
-<key-file> --model <available-Hast-text-model>`. Never ask for keys in chat.
-`hast status` reports local configuration, not proof of server authorization.
-Use `cutline hast models` to read the active Hast text models and listed token
-prices, then choose the model ID for component generation.
+Use `--base-url <Backplane-origin/api/public/v1>` for a private or DEV deployment,
+or set `HAST_API_BASE_URL`. The deployment must enable the device authorization
+endpoints and configure its trusted Account UI origin. Existing saved settings
+are reused; otherwise the CLI uses the public HAST endpoint.
+
+On SSH/headless hosts use `--no-browser` and open the printed URL on another
+computer. macOS uses Keychain, Linux uses Secret Service (`secret-tool`), and
+Windows stores CurrentUser DPAPI-encrypted credentials. If no keyring is available
+on Linux/macOS, explicitly select `--credential-store file` for an unencrypted
+owner-private file outside the video project. Do not silently choose this fallback.
+
+Short-lived access tokens refresh automatically. Account > Login & security
+lists authorized CLI devices and can revoke them immediately. `cutline hast
+logout` revokes browser authorization before deleting local credentials; if the
+server is unreachable, retry logout later or revoke in Account settings.
+
+For automation, `cutline hast login --base-url <URL> --from <private-key-file>`
+retains API-key login. The key must grant `models:invoke`; importing it does not
+verify server authorization. Do not substitute a cloud Agent task or provider key.
+`hast status` describes local configuration; use `cutline hast models` to verify
+access and read available Hast text models/prices, then choose a component model.
 
 ## Components
 
@@ -32,7 +47,10 @@ The model-facing intermediate format is
 Cutline deterministically wraps it into its native author structure. Do not
 interpret arbitrary returned HTML as an author document. Animation must be
 deterministic under absolute time and backward seeking; no external network
-assets are required by this contract. A structural check does not guarantee
+assets are required by this contract. Use unique component-prefixed CSS class names and matching render selectors to
+avoid collisions with the renderer page (for example, avoid bare `.header` or
+`.title`). Inspect generated layouts and repair locally before export.
+A structural check does not guarantee
 visual quality or correct generated JavaScript.
 The Program argument named `localFrame` is elapsed seconds in the current
 Cutline runtime; use it directly as time.

@@ -47,17 +47,20 @@ The command installs Skill instructions. On first use, your AI tool follows the
 [Cutline CLI](https://www.npmjs.com/package/@hast/gtm-cutline) and check rendering
 dependencies. Setup runs subject to your AI tool's normal execution permissions.
 
-Cutline 0.1.0 requires Node.js 24+, FFmpeg/ffprobe, libass for FFmpeg text rendering,
+Cutline 0.2.0 requires Node.js 24+, FFmpeg/ffprobe, libass for FFmpeg text rendering,
 and matching Playwright Chromium. You can also install the CLI yourself:
 
 ```sh
-npm install -g @hast/gtm-cutline@0.1.0
+npm install -g @hast/gtm-cutline@0.2.0
 cutline doctor
 ```
 
 Editing, project files, previews and video rendering stay on your computer.
-Optional HAST component generation and narration require a separate HAST API key
-with models:invoke permission and a compatible deployment endpoint. Only the
+Optional HAST component generation and narration use `cutline hast login` to
+open HAST Account and authorize `models:invoke`. Credentials are stored using
+macOS Keychain, Linux Secret Service, or Windows DPAPI. API-key import remains
+available for automation. A compatible deployment must enable browser authorization;
+this release has been verified against DEV, not production. Only the
 content needed for those inference calls is sent to HAST. Never paste API keys
 into a chat. See the [generation guide](skills/hast-gtm/references/hast.md).
 
