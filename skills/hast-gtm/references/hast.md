@@ -25,15 +25,38 @@ For automation, `cutline hast login --base-url <URL> --from <private-key-file>`
 retains API-key login. The key must grant `models:invoke`; importing it does not
 verify server authorization. Do not substitute a cloud Agent task or provider key.
 `hast status` describes local configuration; use `cutline hast models` to verify
-access and read available Hast text models/prices, then choose a component model.
+access and read available Hast text models/prices, and verify `anthropic/claude-opus-5.5` is available. Do not substitute another model without the user's instruction.
+
+## Creative planning
+
+For creative direction and animation design, call HAST's Claude Opus 5.5 through
+Cutline. The host AI gathers the brief and local material summaries, orchestrates
+the calls, checks the output and edits locally; it must not silently replace
+this creative stage with its own model. Claude Code is a client, not the model.
+
+```sh
+cutline hast plan --prompt-file brief.txt --model anthropic/claude-opus-5.5 --out creative-plan
+```
+
+This returns `plan.md`, the raw `response.json` and `usage.json`. Review the plan
+against the brief, resolve unsupported claims and missing inputs, then supply it
+to component generation. User approval is needed only when their workflow calls
+for it. An existing user-approved plan can be reused instead of regenerated.
+The command sends text, not the original video. Extract relevant descriptions or
+transcripts locally; image/keyframe and video uploads are not supported here.
 
 ## Components
 
 Write the user's brief to a local text file, then call:
 
 ```sh
-cutline hast component --prompt-file brief.txt --seconds 8 --width 1920 --height 1080 --fps 30 --out generated-scene
+cutline hast component --prompt-file brief.txt --plan-file creative-plan/plan.md --model anthropic/claude-opus-5.5 --seconds 8 --width 1920 --height 1080 --fps 30 --out generated-scene
 ```
+
+Both creative commands default to Opus 5.5 when no explicit or saved model is set.
+Use the explicit model flag above to avoid a legacy saved model overriding this
+workflow. Only change it when the user requests another model; never fall back
+on failure. Each command is a separate billable call.
 
 The output includes a checked native `main.cutline.json` and a `run.cutline.json`.
 Preview with `cutline studio --run run.cutline.json --workspace generated-scene`.

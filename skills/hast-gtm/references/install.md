@@ -10,10 +10,10 @@ Preserve existing installations that already work.
 Check `node --version` and `cutline --help`. Cutline requires Node.js 24 or later.
 If Node is missing or older, use the user's existing Node version manager or
 platform installation method. Do not replace an unrelated project toolchain.
-Install or update to the browser-login release when missing or older than 0.2.0:
+Install or update to the browser-login release when missing or older than 0.3.0:
 
 ```sh
-npm install --global @hast/gtm-cutline@0.2.0
+npm install --global @hast/gtm-cutline@0.3.0
 cutline --help
 cutline doctor
 ```
@@ -21,7 +21,7 @@ cutline doctor
 If global installation is unavailable, use the same CLI through npm exec:
 
 ```sh
-npm exec --yes --package=@hast/gtm-cutline@0.2.0 -- cutline --help
+npm exec --yes --package=@hast/gtm-cutline@0.3.0 -- cutline --help
 ```
 
 Use that prefix for subsequent Cutline commands in this case. Do not use sudo
@@ -35,7 +35,7 @@ Rendering requires FFmpeg and ffprobe; the default FFmpeg text renderer also
 requires libass. Use the platform's available package manager and verify the
 actual capabilities with doctor after installation.
 
-Cutline 0.2.0 pins Playwright 1.62.1. Install its matching Chromium:
+Cutline 0.3.0 pins Playwright 1.62.1. Install its matching Chromium:
 
 ```sh
 npm exec --yes --package=playwright@1.62.1 -- playwright install chromium
@@ -75,7 +75,7 @@ follow [the local workflow](workflow.md) to validate, preview and export.
 Keep original footage intact and write exports separately.
 
 Hast generation is optional and separately authenticated. Local editing needs
-no Hast login. Cutline 0.2.0 supports browser authorization with
+no Hast login. Cutline 0.3.0 supports browser authorization with
 `cutline hast login`; 0.1.0 supports only key import. Browser login also requires
 a server with device authorization enabled and a configured Account UI origin.
 The browser flow has been verified in DEV; production readiness is not implied

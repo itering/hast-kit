@@ -21,7 +21,7 @@ bundled [installation instructions](references/install.md) to install the publis
 CLI and resolve prerequisites. Do not clone the private Hast repository.
 For HAST generation, check `cutline hast --help` for browser-login options
 (`--no-browser`, `--credential-store`). If missing, follow the installation
-reference to upgrade to 0.2.0 or later.
+reference to upgrade to 0.3.0 or later. Also verify `cutline hast --help` includes `plan`.
 Run `cutline doctor` before rendering to identify missing local prerequisites.
 
 Create a new project with `cutline init <new-directory>`. For existing projects,
@@ -58,7 +58,12 @@ started for the task.
 
 ## Model credentials and generated assets
 
-For Hast HTML component generation and Gemini 3.8 Flash TTS, read
+Use HAST Claude Opus 5.5 (`anthropic/claude-opus-5.5`) for creative planning
+and animation component generation: first `cutline hast plan`, then
+`cutline hast component --plan-file <plan.md>`. Pass the model explicitly for
+both calls unless the user requests another model. The host AI orchestrates
+and performs local editing; HAST supplies the creative plan and animation code.
+For this workflow and Gemini 3.8 Flash TTS narration, read
 [Hast generation](references/hast.md). These are individual inference calls;
 the host AI continues the local workflow after each result.
 

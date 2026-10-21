@@ -47,13 +47,18 @@ The command installs Skill instructions. On first use, your AI tool follows the
 [Cutline CLI](https://www.npmjs.com/package/@hast/gtm-cutline) and check rendering
 dependencies. Setup runs subject to your AI tool's normal execution permissions.
 
-Cutline 0.2.0 requires Node.js 24+, FFmpeg/ffprobe, libass for FFmpeg text rendering,
+Cutline 0.3.0 requires Node.js 24+, FFmpeg/ffprobe, libass for FFmpeg text rendering,
 and matching Playwright Chromium. You can also install the CLI yourself:
 
 ```sh
-npm install -g @hast/gtm-cutline@0.2.0
+npm install -g @hast/gtm-cutline@0.3.0
 cutline doctor
 ```
+
+Creative planning and animation components use HAST Claude Opus 5.5. The Skill
+first generates a creative plan, then passes that plan to component generation.
+Narration uses Gemini 3.8 Flash TTS. Only explicit user requests change the
+creative model; failed calls never silently fall back.
 
 Editing, project files, previews and video rendering stay on your computer.
 Optional HAST component generation and narration use `cutline hast login` to
