@@ -1,9 +1,13 @@
 ---
-name: cutline
-description: Edit local video footage with Cutline, including captions, HTML components, narration, local Studio previews and MP4 exports. Use when the user asks to edit footage with Cutline or work on a .cutline.json project.
+name: hast-gtm
+description: Edit local videos for HAST GTM using the Cutline CLI, including captions, HTML components, narration, local previews and MP4 exports. Use when the user mentions hast-gtm, HAST GTM, gtm video, gtm cutline, or asks to edit video with Cutline or work on a .cutline.json project.
 ---
 
-# Cutline
+# HAST GTM
+
+Recognize `hast-gtm`, `gtm video`, and `gtm cutline` as requests for this video
+editing skill. The executable remains `cutline`; these phrases are not CLI
+commands. Keep this skill focused on video workflows, not unrelated GTM tasks.
 
 Run the editing workflow on the user's computer. The host AI owns task planning,
 file edits, inspection and iteration. Cutline compiles and renders locally.

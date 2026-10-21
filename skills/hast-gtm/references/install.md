@@ -57,7 +57,7 @@ Select the AI tools to use when prompted. To install only Cutline for Codex and
 Claude Code without prompts:
 
 ```sh
-npx skills add itering/hast-kit --skill cutline -g -a codex -a claude-code -y
+npx skills add itering/hast-kit --skill hast-gtm -g -a codex -a claude-code -y
 ```
 
 This installs instructions, not the CLI or rendering dependencies. If this Skill
