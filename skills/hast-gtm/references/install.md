@@ -15,7 +15,6 @@ Install or update to the browser-login release when missing or older than 0.3.0:
 ```sh
 npm install --global @hast/gtm-cutline@0.3.0
 cutline --help
-cutline doctor
 ```
 
 If global installation is unavailable, use the same CLI through npm exec:
@@ -29,17 +28,17 @@ or change global npm ownership just to work around an installation error.
 
 ## Rendering dependencies
 
-`cutline doctor` reports prerequisites as JSON and exits nonzero when required
-capabilities are missing. Inspect the result and install only missing tools.
-Rendering requires FFmpeg and ffprobe; the default FFmpeg text renderer also
-requires libass. Use the platform's available package manager and verify the
-actual capabilities with doctor after installation.
+The recommended raster engine needs FFmpeg, ffprobe and Playwright Chromium;
+it does not need libass for captions. Install dependencies only when missing
+or an export reports a relevant failure. Do not require `cutline doctor` before
+every export. It is an optional diagnostic that checks both engines; its
+libass failure alone does not block raster. The ffmpeg engine needs libass for
+text/captions. See [export selection](workflow.md#choose-an-export-engine).
 
 Cutline 0.3.0 pins Playwright 1.62.1. Install its matching Chromium:
 
 ```sh
 npm exec --yes --package=playwright@1.62.1 -- playwright install chromium
-cutline doctor
 ```
 
 For other Cutline versions, read the exact Playwright dependency from the
