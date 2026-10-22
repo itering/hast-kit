@@ -10,17 +10,18 @@ Preserve existing installations that already work.
 Check `node --version` and `cutline --help`. Cutline requires Node.js 24 or later.
 If Node is missing or older, use the user's existing Node version manager or
 platform installation method. Do not replace an unrelated project toolchain.
-Install or update to the browser-login release when missing or older than 0.3.0:
+For the 32,000-token component allowance and budget-exhaustion diagnostics,
+install or update to 0.4.1 when missing or older:
 
 ```sh
-npm install --global @hast/gtm-cutline@0.3.0
+npm install --global @hast/gtm-cutline@0.4.1
 cutline --help
 ```
 
 If global installation is unavailable, use the same CLI through npm exec:
 
 ```sh
-npm exec --yes --package=@hast/gtm-cutline@0.3.0 -- cutline --help
+npm exec --yes --package=@hast/gtm-cutline@0.4.1 -- cutline --help
 ```
 
 Use that prefix for subsequent Cutline commands in this case. Do not use sudo

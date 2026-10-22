@@ -78,6 +78,29 @@ visual quality or correct generated JavaScript.
 The Program argument named `localFrame` is elapsed seconds in the current
 Cutline runtime; use it directly as time.
 
+## Scope each component request
+
+Cutline 0.4.1 allows at most 32,000 output tokens for `hast component`; `hast plan`
+remains at 8,000. This is a maximum allowance, not an instruction to generate
+32,000 tokens. Ask for concise, complete output. Reasoning may consume the budget
+before final code is returned; a larger ceiling does not make whole-video
+component generation reliable. Older CLI versions may have a lower ceiling;
+follow the [installation guide](install.md) to use this release.
+
+Plan the film as a whole, then generate one coherent scene or focused reusable
+component per call. Split by independent layouts, animated elements and expected
+code complexity, not a fixed number of seconds. A short dense scene can need more
+splitting than a long simple one. Keep the script, captions, footage placement
+and final timeline assembly local when they do not belong inside the component.
+
+Keep a shared style guide for canvas size, fonts, colors, spacing and motion.
+For each scene, supply that guide, the relevant plan excerpt, exact copy, layout,
+local timing and end state. Save the excerpt as a scene-specific plan file for
+`--plan-file`; do not repeat the entire script and every scene's implementation
+requirements in each request. Preserve the original full plan for assembly.
+Use distinct scene IDs and output directories. Check and preview each result,
+reuse completed components, then assemble and inspect their boundaries locally.
+
 ## Narration
 
 ```sh
@@ -99,3 +122,35 @@ usage and obtain direction when a repeat would create an unexpected charge.
 Use saved `response.json` to repair component output locally when possible.
 The returned chat token usage is not a currency quote; speech cost is available
 through Hast account billing, not the WAV file.
+
+### Recover by failure type
+
+Preserve the original response, receipt and any successful scene artifacts. Do
+not delete a failed receipt or edit its status to bypass duplicate-call checks.
+For local repairs, copy available generated files into a separate editable
+project; an edited generated directory is no longer an intact cache entry.
+
+- **Budget exhausted, empty content:** inspect `response.json` and its usage.
+  There is no component code to continue. Split or simplify the scene before
+  making a new call; do not resend the same oversized request unchanged.
+- **Budget exhausted, partial content:** retain it as a draft. Reuse complete
+  portions only after checking them; do not assume truncated JSON or JavaScript
+  is a valid component. Prefer a smaller replacement for the missing portion.
+- **Complete response, invalid JSON or compilation:** first repair syntax,
+  references or author structure locally using the saved response and any author
+  files. Run strict checks and preview the repaired component. If native files
+  were never created, inspect the installed vocabulary and component contract
+  before constructing them; do not pass the intermediate Program JSON as an author.
+- **Checks pass, visual result fails:** identify the specific scene and defect,
+  repair that component locally, and preview it and its boundaries. Keep the
+  successful scenes instead of regenerating the whole film.
+- **Timeout or connection failure:** billing outcome may be unknown. Inspect the
+  local receipt, any saved response and available account usage first. If the
+  outcome cannot be established, report it and obtain direction before another
+  potentially duplicate charge. Never silently switch providers or models.
+
+A revised, deliberately scoped generation uses a new output directory and is a
+new billable request, not a free continuation. Stay within the user's authorized
+scope and budget. If the same failure repeats after a targeted repair, simplify
+or split further rather than looping unchanged requests; retain completed work
+and report what remains unresolved. Verify the combined film after recovery.

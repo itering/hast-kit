@@ -47,12 +47,12 @@ The command installs Skill instructions. On first use, your AI tool follows the
 [Cutline CLI](https://www.npmjs.com/package/@hast/gtm-cutline) and check rendering
 dependencies. Setup runs subject to your AI tool's normal execution permissions.
 
-Cutline 0.3.0 requires Node.js 24+, FFmpeg/ffprobe and matching Playwright
+Cutline 0.4.1 requires Node.js 24+, FFmpeg/ffprobe and matching Playwright
 Chromium for the recommended raster export. The alternative ffmpeg engine needs
 libass for text/captions. See the [engine selection guide](skills/hast-gtm/references/workflow.md#choose-an-export-engine). You can also install the CLI yourself:
 
 ```sh
-npm install -g @hast/gtm-cutline@0.3.0
+npm install -g @hast/gtm-cutline@0.4.1
 cutline --help
 ```
 
