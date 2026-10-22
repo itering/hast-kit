@@ -22,7 +22,9 @@ CLI and resolve prerequisites. Do not clone the private Hast repository.
 For HAST generation, check `cutline hast --help` for browser-login options
 (`--no-browser`, `--credential-store`). If missing, follow the installation
 reference to upgrade to 0.3.0 or later. Also verify `cutline hast --help` includes `plan`.
-Run `cutline doctor` before rendering to identify missing local prerequisites.
+Do not run `cutline doctor` as a mandatory pre-export step. Use it only when
+diagnosing an environment failure; its libass check applies to FFmpeg text
+rendering and must not block raster exports.
 
 Create a new project with `cutline init <new-directory>`. For existing projects,
 inspect their author and run files first. Pass `--workspace <project>` explicitly.
@@ -51,8 +53,12 @@ text, transitions, audio and the final frame. Use the host's available browser
 tools. If visual or audio inspection is unavailable, say which checks remain.
 
 Export locally with `cutline build <run-file> --workspace <project> --profile
-final`. Use `--engine raster` for effects the default FFmpeg engine cannot
-reproduce, such as animated position, rotation or blend modes. Confirm the output
+final --engine raster`. Recommend raster (frame-by-frame browser capture) by
+default for visual fidelity, including HTML components, animations and captions.
+Choose `--engine ffmpeg` when faster export matters and the composition fits its
+supported effects. Always pass the chosen engine explicitly: the CLI fallback
+without this flag is still ffmpeg. Read [export selection](references/workflow.md#choose-an-export-engine)
+for tradeoffs and prerequisites. Confirm the output
 exists and check its playback before declaring completion. Stop Studio processes
 started for the task.
 
