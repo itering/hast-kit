@@ -78,6 +78,12 @@ chat messages or generated HTML. Do not silently switch to a different provider
 or model if the requested Hast capability is unavailable. Tell the user what is
 missing and continue independent local editing work.
 
+Generate complex videos scene by scene or as focused reusable components, using
+a shared style guide. Do not send an entire multi-scene animation implementation
+in one component request. The output budget is a ceiling, not a length target.
+Follow [generation sizing and recovery](references/hast.md#scope-each-component-request)
+when planning calls or recovering incomplete results.
+
 Only send the material needed for the requested generation. Reuse generated
 assets when unchanged, and do not blindly retry a billable request whose outcome
 is unknown.
